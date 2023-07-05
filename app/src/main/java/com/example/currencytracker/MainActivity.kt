@@ -1,12 +1,11 @@
 package com.example.currencytracker
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.currencytracker.api.RetrofitInstance
 import com.example.currencytracker.databinding.ActivityMainBinding
 import com.example.currencytracker.models.toCurrencyModelList
+import com.example.currencytracker.repository.ResponseRepository
 import com.example.currencytracker.ui.FavouriteCurrencyAdapter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -25,8 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         CoroutineScope(Dispatchers.IO).launch {
-            val list = RetrofitInstance.apiService.getMyData()
-            Log.d("Aboba", list.toString())
+            val list = ResponseRepository.getCurrencyList()
             currencyAdapter = FavouriteCurrencyAdapter(list.toCurrencyModelList())
             withContext(Dispatchers.Main) {
 
