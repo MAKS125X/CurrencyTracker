@@ -3,7 +3,6 @@ package com.example.currencytracker.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.green
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencytracker.R
 import com.example.currencytracker.databinding.ItemCurrencyBinding
@@ -15,7 +14,11 @@ class FavouriteCurrencyAdapter(private val dataSet: MutableList<CurrencyModel>) 
     RecyclerView.Adapter<FavouriteCurrencyAdapter.CurrencyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
-        CurrencyViewHolder(ItemCurrencyBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        CurrencyViewHolder(
+            ItemCurrencyBinding.inflate(
+                LayoutInflater.from(parent.context), parent, false
+            )
+        )
 
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
@@ -24,7 +27,8 @@ class FavouriteCurrencyAdapter(private val dataSet: MutableList<CurrencyModel>) 
 
     override fun getItemCount() = dataSet.size
 
-    class CurrencyViewHolder(_binding: ItemCurrencyBinding) : RecyclerView.ViewHolder(_binding.root) {
+    class CurrencyViewHolder(_binding: ItemCurrencyBinding) :
+        RecyclerView.ViewHolder(_binding.root) {
 
         var binding = ItemCurrencyBinding.bind(itemView)
 
@@ -32,7 +36,7 @@ class FavouriteCurrencyAdapter(private val dataSet: MutableList<CurrencyModel>) 
             with(binding) {
                 imageView.setImageResource(R.drawable.ic_usd)
                 currencyName.text = model.Name
-                date.text = model.Date.subSequence(0,9)
+                date.text = model.Date.subSequence(0, 10)
                 nominalWithCode.text = "${model.Nominal} ${model.CharCode}"
                 currentCost.text = model.Value.toString()
                 costChangeValue.text =
@@ -41,6 +45,20 @@ class FavouriteCurrencyAdapter(private val dataSet: MutableList<CurrencyModel>) 
 
                 if (model.Value - model.Previous > 0) {
                     costChangeMark.setImageResource(R.drawable.arrow_up)
+                    currentCost.setTextColor(
+                        ContextCompat.getColor(
+                            binding.currentCost.context,
+                            R.color.green
+                        )
+                    )
+                    costChangeValue.setTextColor(
+                        ContextCompat.getColor(
+                            binding.costChangeValue.context,
+                            R.color.green
+                        )
+                    )
+                } else {
+                    costChangeMark.setImageResource(R.drawable.arrow_down)
                     currentCost.setTextColor(
                         ContextCompat.getColor(
                             binding.currentCost.context,
@@ -53,10 +71,6 @@ class FavouriteCurrencyAdapter(private val dataSet: MutableList<CurrencyModel>) 
                             R.color.red
                         )
                     )
-                } else {
-                    costChangeMark.setImageResource(R.drawable.arrow_down)
-                    currentCost.setTextColor(android.R.attr.color.green)
-                    costChangeValue.setTextColor(android.R.attr.color.green)
                 }
 
                 costChangeMark.setImageResource(
