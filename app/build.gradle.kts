@@ -45,4 +45,10 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.constraintlayout)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.kotlinx.coroutines.core)
+    implementation(libs.retrofit2.kotlin.coroutines.adapter)
+    implementation(libs.logging.interceptor)
+
 }
