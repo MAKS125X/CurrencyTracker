@@ -10,8 +10,14 @@ import com.example.currencytracker.repository.Currency
 import com.example.currencytracker.repository.format
 import kotlin.math.absoluteValue
 
-class FavouriteCurrencyAdapter(private val dataSet: MutableList<Currency>) :
+class FavouriteCurrencyAdapter() :
     RecyclerView.Adapter<FavouriteCurrencyAdapter.CurrencyViewHolder>() {
+
+    var dataSet: MutableList<Currency> = mutableListOf()
+
+    fun submitList(list: MutableList<Currency>){
+        dataSet = list
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
         CurrencyViewHolder(
@@ -31,7 +37,7 @@ class FavouriteCurrencyAdapter(private val dataSet: MutableList<Currency>) :
 
         var binding = ItemCurrencyBinding.bind(itemView)
 
-        fun getResourceId(name: String): Int {
+        private fun getResourceId(name: String): Int {
             return when (name) {
                 "aed" -> R.drawable.ic_aed
                 "amd" -> R.drawable.ic_amd
@@ -48,11 +54,11 @@ class FavouriteCurrencyAdapter(private val dataSet: MutableList<Currency>) :
                 "egp" -> R.drawable.ic_egp
                 "eur" -> R.drawable.ic_eur
                 "gbp" -> R.drawable.ic_gbp
-                "gel" -> R.drawable.ic_aed
-                "hkd" -> R.drawable.ic_aed
-                "huf" -> R.drawable.ic_aed
-                "idr" -> R.drawable.ic_aed
-                "inr" -> R.drawable.ic_aed
+                "gel" -> R.drawable.ic_gel
+                "hkd" -> R.drawable.ic_hkd
+                "huf" -> R.drawable.ic_huf
+                "idr" -> R.drawable.ic_idr
+                "inr" -> R.drawable.ic_inr
                 "jpy" -> R.drawable.ic_jpy
                 "kgs" -> R.drawable.ic_kgs
                 "krw" -> R.drawable.ic_krw
