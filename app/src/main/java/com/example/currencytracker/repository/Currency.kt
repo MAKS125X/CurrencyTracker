@@ -1,11 +1,15 @@
 package com.example.currencytracker.repository
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import kotlin.math.absoluteValue
 
+@Entity
 data class Currency(
-    val id: String,
-    val numCode: String,
-    val charCode: String,
+    @PrimaryKey val id: String,
+    @ColumnInfo(name = "num_code") val numCode: String,
+    @ColumnInfo(name = "char_code") val charCode: String,
     val nominal: Int,
     val name: String,
     val value: Double,
