@@ -1,11 +1,9 @@
 package com.example.currencytracker.repository
 
-import android.util.Log
 import com.example.currencytracker.api.ResponseNetwork
 
 fun ResponseNetwork.toCurrencyModelList(): MutableList<Currency> {
     val list = mutableListOf<Currency>()
-    Log.d("Aboba", this.currency.toString())
     for (valuteItem in this.currency) {
         list.add(
             Currency(
