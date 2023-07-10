@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/gray"
-    android:layout_marginVertical="10dp"
+    android:layout_marginVertical="5dp"
     android:layout_marginHorizontal="4dp"
     app:cardCornerRadius="12dp">
 
@@ -27,12 +27,14 @@
             android:id="@+id/currencyName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginHorizontal="3dp"
+            android:layout_marginTop="4dp"
             android:text="Фунт стерлингов\nСоединенного королевства"
             android:textAlignment="center"
+            android:autoSizeTextType="uniform"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:layout_marginTop="4dp"
-            android:layout_marginHorizontal="2dp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayoutCompat"
             app:layout_constraintEnd_toStartOf="@+id/costLayout"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
@@ -45,8 +47,7 @@
             android:layout_marginHorizontal="4dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/costLayout"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/currencyName">
+            app:layout_constraintStart_toEndOf="@+id/imageView">
 
             <TextView
                 android:id="@+id/nominalWithCode"
@@ -81,7 +82,8 @@
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginVertical="4dp">
 
                 <TextView
                     android:id="@+id/currentCost"
@@ -89,7 +91,6 @@
                     android:layout_height="wrap_content"
                     android:text="88,3844"
                     android:textAlignment="center"
-                    android:textColor="@color/green"
                     android:textSize="24sp"
                     app:layout_constraintBottom_toBottomOf="@+id/costChangeMark"
                     app:layout_constraintEnd_toStartOf="@+id/costChangeMark"
