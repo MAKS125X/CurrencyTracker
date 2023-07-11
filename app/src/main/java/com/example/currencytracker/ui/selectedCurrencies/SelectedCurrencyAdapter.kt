@@ -1,41 +1,45 @@
-package com.example.currencytracker.ui
+package com.example.currencytracker.ui.selectedCurrencies
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencytracker.R
-import com.example.currencytracker.databinding.ItemCurrencyBinding
-import com.example.currencytracker.repository.Currency
+import com.example.currencytracker.databinding.ItemSelectedCurrencyBinding
+import com.example.currencytracker.db.SettingCurrency
+import com.example.currencytracker.repository.SelectedCurrency
 import com.example.currencytracker.repository.format
+import com.example.currencytracker.ui.settings.SettingsCurrencyAdapter
 import kotlin.math.absoluteValue
 
-class FavouriteCurrencyAdapter() :
-    RecyclerView.Adapter<FavouriteCurrencyAdapter.CurrencyViewHolder>() {
+class SelectedCurrencyAdapter() :
+    ListAdapter<SelectedCurrency, SelectedCurrencyAdapter.SelectedCurrencyViewHolder>(DiffCallback) {
 
-    var dataSet: MutableList<Currency> = mutableListOf()
+//    var dataSet: MutableList<SelectedCurrency> = mutableListOf()
 
-    fun submitList(list: MutableList<Currency>){
-        dataSet = list
-    }
+//    fun submitList(list: MutableList<SelectedCurrency>){
+//        dataSet = list
+//    }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
-        CurrencyViewHolder(
-            ItemCurrencyBinding.inflate(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedCurrencyViewHolder =
+        SelectedCurrencyViewHolder(
+            ItemSelectedCurrencyBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
 
-    override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        holder.bind(dataSet[position])
+    override fun onBindViewHolder(holder: SelectedCurrencyViewHolder, position: Int) {
+        holder.bind(getItem(position))
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemCount() = currentList.size
 
-    class CurrencyViewHolder(_binding: ItemCurrencyBinding) :
+    class SelectedCurrencyViewHolder(_binding: ItemSelectedCurrencyBinding) :
         RecyclerView.ViewHolder(_binding.root) {
 
-        var binding = ItemCurrencyBinding.bind(itemView)
+        var binding = ItemSelectedCurrencyBinding.bind(itemView)
 
         private fun getResourceId(name: String): Int {
             return when (name) {
@@ -87,7 +91,7 @@ class FavouriteCurrencyAdapter() :
             }
         }
 
-        fun bind(model: Currency) {
+        fun bind(model: SelectedCurrency) {
             with(binding) {
 
                 imageView.setImageResource(getResourceId(model.charCode.lowercase()))
@@ -122,6 +126,24 @@ class FavouriteCurrencyAdapter() :
                     if (model.value - model.previous > 0)
                         R.drawable.arrow_up else R.drawable.arrow_down
                 )
+            }
+        }
+    }
+
+    companion object{
+        private val DiffCallback = object : DiffUtil.ItemCallback<SelectedCurrency>() {
+            override fun areItemsTheSame(
+                oldItem: SelectedCurrency,
+                newItem: SelectedCurrency
+            ): Boolean {
+                return oldItem.id == newItem.id
+            }
+
+            override fun areContentsTheSame(
+                oldItem: SelectedCurrency,
+                newItem: SelectedCurrency
+            ): Boolean {
+                return oldItem == newItem
             }
         }
     }
