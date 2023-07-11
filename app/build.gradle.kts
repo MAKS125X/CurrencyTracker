@@ -39,7 +39,6 @@ android {
     buildFeatures {
         viewBinding = true
     }
-
 }
 
 dependencies {
@@ -66,6 +65,7 @@ dependencies {
     implementation(libs.converter.gson)
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
+    implementation (libs.androidx.swiperefreshlayout)
 }
 
 kapt {
