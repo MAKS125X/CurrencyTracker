@@ -1,41 +1,44 @@
-package com.example.currencytracker.ui
+package com.example.currencytracker.ui.settings
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencytracker.R
-import com.example.currencytracker.databinding.ItemCurrencyBinding
-import com.example.currencytracker.repository.Currency
-import com.example.currencytracker.repository.format
-import kotlin.math.absoluteValue
+import com.example.currencytracker.databinding.ItemSettingCurrencyBinding
+import com.example.currencytracker.db.SettingCurrency
 
-class FavouriteCurrencyAdapter() :
-    RecyclerView.Adapter<FavouriteCurrencyAdapter.CurrencyViewHolder>() {
-
-    var dataSet: MutableList<Currency> = mutableListOf()
-
-    fun submitList(list: MutableList<Currency>){
-        dataSet = list
-    }
+class SettingsCurrencyAdapter(private val onClick: (item: SettingCurrency) -> Unit, private val onLongClick: (item: SettingCurrency) -> Unit) :
+    ListAdapter<SettingCurrency, SettingsCurrencyAdapter.CurrencyViewHolder>(DiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CurrencyViewHolder =
         CurrencyViewHolder(
-            ItemCurrencyBinding.inflate(
+            ItemSettingCurrencyBinding.inflate(
                 LayoutInflater.from(parent.context), parent, false
             )
         )
 
     override fun onBindViewHolder(holder: CurrencyViewHolder, position: Int) {
-        holder.bind(dataSet[position])
+        val current = getItem(position)
+        holder.itemView.setOnClickListener {
+            onClick(current)
+            notifyItemChanged(position)
+        }
+        holder.itemView.setOnLongClickListener {
+            onLongClick(current)
+            notifyItemChanged(position)
+            true
+        }
+        holder.bind(current)
     }
 
-    override fun getItemCount() = dataSet.size
+    override fun getItemId(position: Int): Long = position.toLong()
 
-    class CurrencyViewHolder(_binding: ItemCurrencyBinding) :
+    class CurrencyViewHolder(_binding: ItemSettingCurrencyBinding) :
         RecyclerView.ViewHolder(_binding.root) {
 
-        var binding = ItemCurrencyBinding.bind(itemView)
+        var binding = ItemSettingCurrencyBinding.bind(itemView)
 
         private fun getResourceId(name: String): Int {
             return when (name) {
@@ -87,41 +90,34 @@ class FavouriteCurrencyAdapter() :
             }
         }
 
-        fun bind(model: Currency) {
+        fun bind(model: SettingCurrency) {
             with(binding) {
-
                 imageView.setImageResource(getResourceId(model.charCode.lowercase()))
-                currencyName.text = model.name
-                date.text = model.date.subSequence(0, 10)
-                nominalWithCode.text = "${model.nominal} ${model.charCode}"
-                currentCost.text = model.value.toString()
-                costChangeValue.text =
-                    "${model.getSign()}${model.getDifference().absoluteValue.format(3)} / ${model.getSign()}${
-                        model.getPercentageChange().format(1)
-                    }%"
-
-                if (model.value - model.previous > 0) {
-                    costChangeMark.setImageResource(R.drawable.arrow_up)
-                    costChangeValue.setTextColor(
-                        ContextCompat.getColor(
-                            binding.costChangeValue.context,
-                            R.color.green
-                        )
-                    )
+                if (model.name == "") {
+                    currencyName.text = "model.name"
                 } else {
-                    costChangeMark.setImageResource(R.drawable.arrow_down)
-                    costChangeValue.setTextColor(
-                        ContextCompat.getColor(
-                            binding.costChangeValue.context,
-                            R.color.red
-                        )
-                    )
+                    currencyName.text = model.name
                 }
+                charCodeTextView.text = model.charCode
+                isSelecredImageView.setImageResource(if (model.isSelected) R.drawable.ic_selected else R.drawable.ic_unselected)
+            }
+        }
+    }
 
-                costChangeMark.setImageResource(
-                    if (model.value - model.previous > 0)
-                        R.drawable.arrow_up else R.drawable.arrow_down
-                )
+    companion object {
+        private val DiffCallback = object : DiffUtil.ItemCallback<SettingCurrency>() {
+            override fun areItemsTheSame(
+                oldItem: SettingCurrency,
+                newItem: SettingCurrency
+            ): Boolean {
+                return oldItem.name == newItem.name && oldItem.isSelected == newItem.isSelected
+            }
+
+            override fun areContentsTheSame(
+                oldItem: SettingCurrency,
+                newItem: SettingCurrency
+            ): Boolean {
+                return oldItem == newItem
             }
         }
     }

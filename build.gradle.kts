@@ -27,4 +27,5 @@ allprojects {
 plugins {
     id("org.jetbrains.changelog") version "2.0.0"
     alias(libs.plugins.kotlinAndroid) apply false
+
 }

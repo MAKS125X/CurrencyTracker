@@ -2,11 +2,11 @@ package com.example.currencytracker.repository
 
 import com.example.currencytracker.api.ResponseNetwork
 
-fun ResponseNetwork.toCurrencyModelList(): MutableList<Currency> {
-    val list = mutableListOf<Currency>()
+fun ResponseNetwork.toCurrencyModelList(): MutableList<SelectedCurrency> {
+    val list = mutableListOf<SelectedCurrency>()
     for (valuteItem in this.currency) {
         list.add(
-            Currency(
+            SelectedCurrency(
                 valuteItem.value.id,
                 valuteItem.value.numCode,
                 valuteItem.value.charCode,

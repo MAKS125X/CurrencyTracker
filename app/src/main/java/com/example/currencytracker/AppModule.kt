@@ -16,13 +16,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 object AppModule {
 
     @Provides
-
     fun provideDatabase(app: Application): AppDatabase =
         Room.databaseBuilder(
             app,
             AppDatabase::class.java,
-            "currency_database"
+            "currency_database.db"
         )
+            .createFromAsset("currency.db")
             .build()
 
 
@@ -37,5 +37,4 @@ object AppModule {
     @Provides
     fun provideApiService(retrofit: Retrofit): ApiService =
         retrofit.create(ApiService::class.java)
-
 }

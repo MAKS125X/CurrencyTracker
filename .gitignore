@@ -230,3 +230,4 @@ fabric.properties
 
 
 
+/app/schemas/com.example.currencytracker.db.AppDatabase/1.json
