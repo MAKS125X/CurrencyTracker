@@ -10,7 +10,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
     crossinline query: () -> Flow<ResultType>,
     crossinline fetch: suspend () -> RequestType,
     crossinline saveFetchResult: suspend (RequestType) -> Unit,
-    crossinline shouldFetch: (ResultType) -> Boolean = { true }
+    crossinline shouldFetch: (ResultType) -> Boolean
 ) = flow {
     val data = query().first()
 
@@ -19,12 +19,12 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
         try {
             saveFetchResult(fetch())
-            query().map { Resource.Success(it) }
+            query().map { Resource.SuccessFromApi(it) }
         } catch (throwable: Throwable) {
             query().map { Resource.Error(throwable, it) }
         }
     } else {
-        query().map { Resource.Success(it) }
+        query().map { Resource.SuccessFromDao(java.io.IOException(), it) }
     }
 
     emitAll(flow)
