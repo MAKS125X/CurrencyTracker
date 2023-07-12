@@ -21,7 +21,7 @@ class SelectedCurrencyViewModel @Inject constructor(
 
     fun refreshCurrencies() {
         viewModelScope.launch {
-            repository.getCurrency().collect { result ->
+            repository.getCurrenciesWithBoundResources().collect { result ->
                 _currencies.value = result
             }
         }

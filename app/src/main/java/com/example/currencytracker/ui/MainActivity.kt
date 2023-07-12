@@ -1,9 +1,14 @@
 package com.example.currencytracker.ui
 
+import android.app.AlertDialog
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.example.currencytracker.R
 import com.example.currencytracker.databinding.ActivityMainBinding
@@ -13,7 +18,6 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +34,6 @@ class MainActivity : AppCompatActivity() {
             )
             .addToBackStack(null)
             .commit()
-
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {

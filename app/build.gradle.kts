@@ -51,10 +51,13 @@ dependencies {
     implementation (libs.androidx.lifecycle.livedata.ktx)
     implementation (libs.androidx.fragment.ktx)
 
-    implementation (libs.hilt.android.v2461)
+    implementation(libs.hilt.android.v2461)
+    implementation(libs.androidx.hilt.work)
     kapt(libs.hilt.compiler)
     androidTestImplementation(libs.hilt.android.testing)
     kaptAndroidTest(libs.hilt.android.compiler.v245)
+    kapt ("androidx.hilt:hilt-compiler:1.0.0")
+
 
     implementation(libs.room.runtime)
     annotationProcessor(libs.room.compiler)
@@ -66,6 +69,8 @@ dependencies {
     implementation(libs.kotlinx.coroutines.core)
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
     implementation (libs.androidx.swiperefreshlayout)
+
+    implementation(libs.androidx.work.runtime.ktx)
 }
 
 kapt {

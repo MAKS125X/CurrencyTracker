@@ -8,7 +8,6 @@ import com.example.currencytracker.db.SettingCurrency
 import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import kotlinx.coroutines.delay
 import javax.inject.Inject
 
 @InstallIn(ViewModelComponent::class)
@@ -20,7 +19,7 @@ class CurrencyRepository @Inject constructor(
 
     private val dao: SelectedCurrenciesDao = db.selectedCurrenciesDao()
 
-    fun getCurrency() = networkBoundResource(
+    fun getCurrenciesWithBoundResources() = networkBoundResource(
         query = {
             dao.getAllCurrencies()
         },
@@ -38,6 +37,8 @@ class CurrencyRepository @Inject constructor(
     fun getSettings() = db.settingsCurrenciesDao().getAllCurrencies()
 
     fun getLevelById(id: String) = db.settingsCurrenciesDao().getNotificationLevelById(id)
+
+    fun getCurrenciesReachedLevel() = db.selectedCurrenciesDao().getCurrenciesReachedLevel()
 
     suspend fun updateSettings(settingCurrency: SettingCurrency): Int{
         return db.settingsCurrenciesDao().updateCurrency(settingCurrency)
