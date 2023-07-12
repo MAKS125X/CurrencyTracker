@@ -8,6 +8,7 @@ google-hilt-android-compiler = "2.45"
 google-hilt-android-gradle-plugin = "2.45"
 gradle = "8.0.2"
 hilt-android = "2.45"
+hiltWork = "1.0.0"
 kotlin = "1.8.20"
 core-ktx = "1.9.0"
 appcompat = "1.6.1"
@@ -22,13 +23,16 @@ room-runtime = "2.5.2"
 ksp = "1.8.10-1.0.9"
 changeLog = "2.0.0"
 swiperefreshlayout = "1.1.0"
+workRuntimeKtx = "2.8.1"
 
 [libraries]
 android-junit5 = { module = "de.mannodermaus.gradle.plugins:android-junit5", version.ref = "android-junit5" }
 androidx-fragment-ktx = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment-ktx" }
+androidx-hilt-work = { module = "androidx.hilt:hilt-work", version.ref = "hiltWork" }
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle-viewmodel-ktx" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle-viewmodel-ktx" }
 androidx-swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout", version.ref = "swiperefreshlayout" }
+androidx-work-runtime-ktx = { module = "androidx.work:work-runtime-ktx", version.ref = "workRuntimeKtx" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converter-gson" }
 core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "core-ktx" }
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
