@@ -2,7 +2,6 @@ package com.example.currencytracker.api
 
 import com.google.gson.annotations.SerializedName
 
-
 data class ResponseNetwork(
     @SerializedName("Date")
     val date: String,

@@ -8,20 +8,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.currencytracker.R
 import com.example.currencytracker.databinding.ItemSelectedCurrencyBinding
-import com.example.currencytracker.db.SettingCurrency
 import com.example.currencytracker.repository.SelectedCurrency
 import com.example.currencytracker.repository.format
-import com.example.currencytracker.ui.settings.SettingsCurrencyAdapter
 import kotlin.math.absoluteValue
 
-class SelectedCurrencyAdapter() :
+class SelectedCurrencyAdapter :
     ListAdapter<SelectedCurrency, SelectedCurrencyAdapter.SelectedCurrencyViewHolder>(DiffCallback) {
-
-//    var dataSet: MutableList<SelectedCurrency> = mutableListOf()
-
-//    fun submitList(list: MutableList<SelectedCurrency>){
-//        dataSet = list
-//    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SelectedCurrencyViewHolder =
         SelectedCurrencyViewHolder(
