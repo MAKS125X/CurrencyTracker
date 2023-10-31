@@ -35,7 +35,7 @@ class TrackerApplication : Application(), Configuration.Provider{
             .build()
 
         val repeatingRequest =
-            PeriodicWorkRequestBuilder<CurrencyWorker>(15, TimeUnit.MINUTES)
+            PeriodicWorkRequestBuilder<CurrencyWorker>(5, TimeUnit.HOURS)
                 .setConstraints(constraints)
                 .build()
 
