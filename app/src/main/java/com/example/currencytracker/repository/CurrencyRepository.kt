@@ -31,7 +31,7 @@ class CurrencyRepository @Inject constructor(
                 dao.insertCurrencies(currencies)
             }
         },
-        shouldFetch = {true}
+        shouldFetch = { true }
     )
 
     fun getSettings() = db.settingsCurrenciesDao().getAllCurrencies()
@@ -40,7 +40,7 @@ class CurrencyRepository @Inject constructor(
 
     fun getCurrenciesReachedLevel() = db.selectedCurrenciesDao().getCurrenciesReachedLevel()
 
-    suspend fun updateSettings(settingCurrency: SettingCurrency): Int{
+    suspend fun updateSettings(settingCurrency: SettingCurrency): Int {
         return db.settingsCurrenciesDao().updateCurrency(settingCurrency)
     }
 }
