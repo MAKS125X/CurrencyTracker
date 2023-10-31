@@ -1,14 +1,10 @@
 package com.example.currencytracker.ui
 
-import android.app.AlertDialog
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.currencytracker.R
 import com.example.currencytracker.databinding.ActivityMainBinding
@@ -45,14 +41,38 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.settingsButton -> {
-                supportFragmentManager.beginTransaction()
-                    .replace(
-                        R.id.navigation_host_fragment,
-                        SettingsFragment(),
-                        SettingsFragment.TAG
+                val settingsFragment =
+                    supportFragmentManager.findFragmentById(R.id.navigation_host_fragment)
+                if ((settingsFragment !is SettingsFragment)) {
+                    supportFragmentManager.beginTransaction()
+                        .replace(
+                            R.id.navigation_host_fragment,
+                            SettingsFragment(),
+                            SettingsFragment.TAG
+                        )
+                        .addToBackStack(null)
+                        .commit()
+                }
+                true
+            }
+
+            R.id.aboutButton -> {
+                val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+                builder
+                    .setMessage(
+                        "Трекер курса валют ЦБ РФ\n" +
+                                "В меню настроек есть возможность установить порог, " +
+                                "при достижении которого будет отправляться уведомление. " +
+                                "Для этого воспользуйтесь долгим нажатием\n" +
+                                "API для курсов ЦБ РФ: www.cbr-xml-daily.ru/"
                     )
-                    .addToBackStack(null)
-                    .commit()
+                    .setTitle("Особенности программы")
+                    .setPositiveButton("Закрыть") { dialog, _ ->
+                        dialog.cancel()
+                    }
+
+                val dialog: AlertDialog = builder.create()
+                dialog.show()
                 true
             }
 

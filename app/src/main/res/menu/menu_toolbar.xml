@@ -2,8 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/aboutButton"
+        android:icon="@drawable/ic_about"
+        app:showAsAction="ifRoom"
+        android:title="About program" />
+    <item
         android:id="@+id/settingsButton"
         android:icon="@drawable/ic_settings"
-        app:showAsAction="always"
-        android:title="settings" />
+        app:showAsAction="ifRoom"
+        android:title="Settings" />
 </menu>
