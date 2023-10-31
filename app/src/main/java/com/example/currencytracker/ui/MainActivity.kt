@@ -1,9 +1,14 @@
 package com.example.currencytracker.ui
 
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.method.LinkMovementMethod
+import android.text.style.URLSpan
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.example.currencytracker.R
@@ -57,15 +62,23 @@ class MainActivity : AppCompatActivity() {
             }
 
             R.id.aboutButton -> {
+                val messageText = SpannableString(
+                    "Чтобы установить порог, " +
+                            "при достижении которого будет отправляться уведомление, " +
+                            "воспользуйтесь долгим нажатием по карточке (в меню строек). " +
+                            "Для этого воспользуйтесь долгим нажатием\n\n" +
+                            "API для курсов ЦБ РФ: www.cbr-xml-daily.ru/"
+                )
+                messageText.setSpan(
+                    URLSpan("http://www.cbr-xml-daily.ru/"),
+                    messageText.indexOf("www.cbr-xml-daily.ru"),
+                    messageText.indexOf("www.cbr-xml-daily.ru") + "www.cbr-xml-daily.ru".length,
+                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
+                )
+
                 val builder: AlertDialog.Builder = AlertDialog.Builder(this)
                 builder
-                    .setMessage(
-                        "Трекер курса валют ЦБ РФ\n" +
-                                "В меню настроек есть возможность установить порог, " +
-                                "при достижении которого будет отправляться уведомление. " +
-                                "Для этого воспользуйтесь долгим нажатием\n" +
-                                "API для курсов ЦБ РФ: www.cbr-xml-daily.ru/"
-                    )
+                    .setMessage(messageText)
                     .setTitle("Особенности программы")
                     .setPositiveButton("Закрыть") { dialog, _ ->
                         dialog.cancel()
@@ -73,6 +86,9 @@ class MainActivity : AppCompatActivity() {
 
                 val dialog: AlertDialog = builder.create()
                 dialog.show()
+
+                dialog.findViewById<TextView>(android.R.id.message)?.movementMethod =
+                    LinkMovementMethod.getInstance()
                 true
             }
 
